@@ -3,11 +3,10 @@ using System;
 
 public partial class AudioMenu : CanvasLayer {
 
+    //Bus Indexes are configured in GameMaster.SetupAudioBusIndexes()
+
     //Labels
     private Label master_label, music_label, sfx_label, voice_label, male_label, female_label;
-
-    //Bus Indexes
-    private int master_index, music_index, sfx_index, voice_index, male_index, female_index;
 
     //Sliders
     private HSlider master_hslider, music_hslider, sfx_hslider, voice_hslider, male_hslider, female_hslider;
@@ -19,15 +18,7 @@ public partial class AudioMenu : CanvasLayer {
         sfx_label = GetNode<Label>("sfx_label");
         voice_label = GetNode<Label>("voice_label");
         male_label = GetNode<Label>("male_label");
-        female_label = GetNode<Label>("female_label");
-
-        //Assign Bus Indexes
-        master_index = AudioServer.GetBusIndex("Master");
-        music_index = AudioServer.GetBusIndex("Music");
-        sfx_index = AudioServer.GetBusIndex("SFX");
-        voice_index = AudioServer.GetBusIndex("Voice");
-        male_index = AudioServer.GetBusIndex("Male");
-        female_index = AudioServer.GetBusIndex("Female");
+        female_label = GetNode<Label>("female_label");      
 
         //Assign Slider Nodes
         master_hslider = GetNode<HSlider>("master_hslider");
@@ -50,44 +41,44 @@ public partial class AudioMenu : CanvasLayer {
 	public void _on_slider_value_changed(float myFloat, string myString) {
         switch (myString) {
             case "Master":
-                master_label.Text = "Master: " + myFloat.ToString();
-                AudioServer.SetBusVolumeDb(master_index, Mathf.LinearToDb(myFloat));
+                master_label.Text = "Master: " + (int)(myFloat * 100) + "%";
+                AudioServer.SetBusVolumeDb(GameMaster.master_index, Mathf.LinearToDb(myFloat));
                 GameMaster.gameData.masterVolume = myFloat;
                 break;
             case "Music":
-                music_label.Text = "Music: " + myFloat.ToString();
-                AudioServer.SetBusVolumeDb(music_index, Mathf.LinearToDb(myFloat));
+                music_label.Text = "Music: " + (int)(myFloat * 100) + "%";
+                AudioServer.SetBusVolumeDb(GameMaster.music_index, Mathf.LinearToDb(myFloat));
                 GameMaster.gameData.musicVolume = myFloat;
                 break;
             case "SFX":
-                sfx_label.Text = "SFX: " + myFloat.ToString();
-                AudioServer.SetBusVolumeDb(sfx_index, Mathf.LinearToDb(myFloat));
+                sfx_label.Text = "SFX: " + (int)(myFloat * 100) + "%";
+                AudioServer.SetBusVolumeDb(GameMaster.sfx_index, Mathf.LinearToDb(myFloat));
                 GameMaster.gameData.sfxVolume = myFloat;
                 break;
             case "Voice":
-                voice_label.Text = "Voice: " + myFloat.ToString();
-                AudioServer.SetBusVolumeDb(voice_index, Mathf.LinearToDb(myFloat));
+                voice_label.Text = "Voice: " + (int)(myFloat * 100) + "%";
+                AudioServer.SetBusVolumeDb(GameMaster.voice_index, Mathf.LinearToDb(myFloat));
                 GameMaster.gameData.voiceVolume = myFloat;
                 break;
             case "Male":
-                male_label.Text = "Male: " + myFloat.ToString();
-                AudioServer.SetBusVolumeDb(male_index, Mathf.LinearToDb(myFloat));
+                male_label.Text = "Male: " + (int)(myFloat * 100) + "%";
+                AudioServer.SetBusVolumeDb(GameMaster.male_index, Mathf.LinearToDb(myFloat));
                 GameMaster.gameData.maleVolume = myFloat;
                 break;
             case "Female":
-                female_label.Text = "Female: " + myFloat.ToString();
-                AudioServer.SetBusVolumeDb(female_index, Mathf.LinearToDb(myFloat));
+                female_label.Text = "Female: " + (int)(myFloat * 100) + "%";
+                AudioServer.SetBusVolumeDb(GameMaster.female_index, Mathf.LinearToDb(myFloat));
                 GameMaster.gameData.femaleVolume = myFloat;
                 break;
             default:
                 GD.Print("Requested Slider not specified: " + myString);
                 break;
         }
-
     }
 
-      public void _on_back_button_button_up() {
+    public void _on_back_button_button_up() {
         GameMaster.SaveGameData();
         MainMenu.instance.ShowLayer(0);
     }
+
 }

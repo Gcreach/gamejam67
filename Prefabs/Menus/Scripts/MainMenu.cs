@@ -1,16 +1,15 @@
 using Godot;
 using System;
 
-public partial class MainMenu : Node2D
-{
+public partial class MainMenu : Node2D {
+
 	public static MainMenu instance;
 
 	[Export] private int defaultLayer;
 
 	[Export] private CanvasLayer[] canvasLayers;
 
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		instance = this;
 
 		ShowLayer(defaultLayer);
@@ -27,9 +26,8 @@ public partial class MainMenu : Node2D
 		}
 	}
 
-	public void _on_quit_button_button_up() {
+    public void _on_quit_button_button_up() {
         SceneManager.instance.QuitGame();
     }
-
 
 }

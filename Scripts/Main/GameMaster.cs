@@ -1,12 +1,13 @@
 using Godot;
 using System;
+using System.Linq;
 
 public partial class GameMaster : Node {
 
     public static GameMaster instance;
 
     //Release.Features.Patch
-    public static string gameVersion = "0.1.1 Build Date: 2/18/2024";
+    public static string gameVersion = "0.1.1 Build Date: 9/24/2023";
 
     //The slot number that the game will save and load to by default
     public static int currentSlotNum = 0;
@@ -31,6 +32,9 @@ public partial class GameMaster : Node {
     public static PlayerData loadedPlayerDataSlot2 = new PlayerData();
     public static PlayerData loadedPlayerDataSlot3 = new PlayerData();
 
+    //Audio Bus Indexes
+    public static int master_index, music_index, sfx_index, voice_index, male_index, female_index;
+
     public override void _Ready() {
         instance = this;        
 
@@ -41,21 +45,76 @@ public partial class GameMaster : Node {
         //SavePlayerData(3);
 
         //Load Game System Data
-        LoadGameData();      
+        LoadGameData();
 
         //Load saved Player Data into seperate fields so they can be displayed / manipulated on the save/load menu
         LoadPlayerDataSlot(1);
         LoadPlayerDataSlot(2);
         LoadPlayerDataSlot(3);
 
+        //Apply GameData Video Settings on Game Start
+        ApplyGameDataVideoSettings();
+
+        //Apply GameData Audio Settings on Game Start
+        SetupAudioBusIndexes();
+        ApplyGameDataAudioSettings();
+
         //This will tell us that GameMaster object was included in autoload.
         GD.Print("(GameMaster) Gamemaster Ready");
     }
 
+    public static void ApplyGameDataVideoSettings() {
+        if (gameData.isFullScreen == true) {
+            DisplayServer.WindowSetMode(DisplayServer.WindowMode.Fullscreen);
+        }
+
+        if (gameData.isFullScreen == false) {
+            DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
+
+            //Use ElementAt with the index number from GameMaster.gameData.resolutionIndex to get key and value from the dictionary
+            //ElementAt is a method provided by System.Linq.
+            int key = gameData.windowResolutions.ElementAt(gameData.resolutionIndex).Key;
+            int value = gameData.windowResolutions.ElementAt(gameData.resolutionIndex).Value;
+            DisplayServer.WindowSetSize(new Vector2I(key, value));
+        }
+
+        //Save Game Data when Resolution is applied.
+        SaveGameData();
+    }
+
+    private void SetupAudioBusIndexes() {
+        //Assign Bus Indexes
+        master_index = AudioServer.GetBusIndex("Master");
+        music_index = AudioServer.GetBusIndex("Music");
+        sfx_index = AudioServer.GetBusIndex("SFX");
+        voice_index = AudioServer.GetBusIndex("Voice");
+        male_index = AudioServer.GetBusIndex("Male");
+        female_index = AudioServer.GetBusIndex("Female");
+    }
+
+    public static void ApplyGameDataAudioSettings() {
+        AudioServer.SetBusVolumeDb(master_index, Mathf.LinearToDb(gameData.masterVolume));
+        AudioServer.SetBusVolumeDb(music_index, Mathf.LinearToDb(gameData.musicVolume));
+        AudioServer.SetBusVolumeDb(sfx_index, Mathf.LinearToDb(gameData.sfxVolume));
+        AudioServer.SetBusVolumeDb(voice_index, Mathf.LinearToDb(gameData.voiceVolume));
+        AudioServer.SetBusVolumeDb(male_index, Mathf.LinearToDb(gameData.maleVolume));
+        AudioServer.SetBusVolumeDb(female_index, Mathf.LinearToDb(gameData.femaleVolume));
+    }
+
+
     //Player Data Methods
     public static void SavePlayerData(int slotNum) { Save(SaveTypes.playerDat, slotNum); }
+    
+    /// <summary>
+    /// //Loads the selected slot file data into the runtime playerData slot.
+    /// </summary>
+    /// <param name="slotNum">1, 2, or 3</param>    
     public static void LoadPlayerData(int slotNum) { Load(SaveTypes.playerDat, slotNum, false); }
-
+    
+    /// <summary>
+    /// //Loads the playerData into one of the setup slot objects
+    /// </summary>
+    /// <param name="slotNum">1, 2, or 3</param>
     public static void LoadPlayerDataSlot(int slotNum) { Load(SaveTypes.playerDat, slotNum, true); }
     public static void DeletePlayerData(int slotNum) { Delete(SaveTypes.playerDat, slotNum); }
 
@@ -63,6 +122,16 @@ public partial class GameMaster : Node {
     public static void SaveGameData() { Save(SaveTypes.gameDat, 1); }
     public static void LoadGameData() { Load(SaveTypes.gameDat, 1); }
     public static void DeleteGameData() { Delete(SaveTypes.gameDat, 1); }
+
+    /// <summary>
+    /// Combined Method that saves PlayerData and GameData with a single call
+    /// </summary>
+    public static void FullSave() {
+        //Save Player Data using the currentSlotNum
+        Save(SaveTypes.playerDat, currentSlotNum);
+        //Save Game Data
+        Save(SaveTypes.gameDat, 1);
+    }
 
     
     //Saves the runtime gameData or playerData to the specified slot
