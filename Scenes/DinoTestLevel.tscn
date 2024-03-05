@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://chka8nusuqnsc"]
+
+[ext_resource type="PackedScene" uid="uid://cfghri26msxrw" path="res://Prefabs/Characters/DinoPlayer/DinoPlayer_PFB.tscn" id="1_cnuea"]
+[ext_resource type="Texture2D" uid="uid://d1qo0d3x8s5bb" path="res://icon.svg" id="2_tiuui"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wi4tv"]
+size = Vector2(122, 121)
+
+[node name="DinoTestLevel" type="Node2D"]
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_cnuea")]
+position = Vector2(188, 161)
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(184, 242)
+scale = Vector2(5.08, 1)
+texture = ExtResource("2_tiuui")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Icon"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Icon/StaticBody2D"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_wi4tv")
