@@ -8,8 +8,20 @@
 script = ExtResource("1_58i0y")
 canvasLayers = [NodePath("Main"), NodePath("SaveLoadQuitMenu"), NodePath("AudioMenu")]
 
-[node name="SaveLoadQuitMenu" parent="." instance=ExtResource("1_vwfqs")]
+[node name="SaveLoadQuitMenu" parent="." node_paths=PackedStringArray("new1", "load1", "delete1", "new2", "load2", "delete2", "new3", "load3", "delete3", "infoLabel1", "infoLabel2", "infoLabel3") instance=ExtResource("1_vwfqs")]
 visible = false
+new1 = NodePath("")
+load1 = NodePath("")
+delete1 = NodePath("")
+new2 = NodePath("")
+load2 = NodePath("")
+delete2 = NodePath("")
+new3 = NodePath("")
+load3 = NodePath("")
+delete3 = NodePath("")
+infoLabel1 = NodePath("")
+infoLabel2 = NodePath("")
+infoLabel3 = NodePath("")
 
 [node name="AudioMenu" parent="." instance=ExtResource("3_cqcbn")]
 visible = false
@@ -35,6 +47,6 @@ offset_right = 45.0
 offset_bottom = 143.0
 text = "Quit"
 
-[connection signal="pressed" from="Main/startButton" to="." method="ShowLayer" binds= [1]]
+[connection signal="button_up" from="Main/startButton" to="." method="ShowLayer" binds= [1]]
 [connection signal="button_up" from="Main/audioButton" to="." method="ShowLayer" binds= [2]]
 [connection signal="button_up" from="Main/quitButton" to="." method="_on_quit_button_button_up"]
