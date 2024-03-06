@@ -50,7 +50,7 @@ offset_bottom = 151.0
 text = "Quit"
 metadata/_edit_use_anchors_ = true
 
-[connection signal="button_up" from="Main/startButton" to="." method="ShowLayer" binds= [1]]
+[connection signal="button_up" from="Main/startButton" to="." method="ShowLayer" binds= [3]]
 [connection signal="button_up" from="Main/audioButton" to="." method="ShowLayer" binds= [2]]
-[connection signal="button_up" from="Main/videoButton" to="." method="ShowLayer" binds= [3]]
+[connection signal="button_up" from="Main/videoButton" to="." method="ShowLayer" binds= [1]]
 [connection signal="button_up" from="Main/quitButton" to="." method="_on_quit_button_up"]
