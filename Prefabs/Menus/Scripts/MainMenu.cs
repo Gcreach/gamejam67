@@ -13,6 +13,9 @@ public partial class MainMenu : Node2D {
 		instance = this;
 
 		ShowLayer(defaultLayer);
+		
+		var sceneManager = new SceneManager();
+		AddChild(sceneManager); // Adds the SceneManager to the scene tree
 	}
 
 	public void ShowLayer(int myInt) {
@@ -26,8 +29,8 @@ public partial class MainMenu : Node2D {
 		}
 	}
 
-    public void _on_quit_button_button_up() {
-        SceneManager.instance.QuitGame();
-    }
+	public void _on_quit_button_up() {
+		SceneManager.instance.QuitGame();
+	}
 
 }
