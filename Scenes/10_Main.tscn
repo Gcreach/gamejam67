@@ -7,7 +7,7 @@
 
 [node name="10_Main" type="Node2D" node_paths=PackedStringArray("canvasLayers")]
 script = ExtResource("1_hb8wx")
-canvasLayers = [NodePath("Main"), NodePath("VideoMenu_PFB"), NodePath("AudioMenu"), NodePath("SaveLoadQuitMenu")]
+canvasLayers = [NodePath("Main"), NodePath("SaveLoadQuitMenu"), NodePath("AudioMenu"), NodePath("VideoMenu_PFB")]
 
 [node name="SaveLoadQuitMenu" parent="." instance=ExtResource("1_vwfqs")]
 layer = 4
