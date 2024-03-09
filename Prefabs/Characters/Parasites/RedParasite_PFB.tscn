@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://ca6fp60qs7to3"]
+
+[ext_resource type="Texture2D" uid="uid://d0g6bvis6oi20" path="res://Assets/Parasites/Red.png" id="1_lcjgu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vdny3"]
+radius = 144.087
+
+[node name="RedParasite_PFB" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2, -22)
+texture = ExtResource("1_lcjgu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_vdny3")
