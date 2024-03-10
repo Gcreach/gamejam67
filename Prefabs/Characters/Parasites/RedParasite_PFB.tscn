@@ -9,7 +9,9 @@ radius = 144.087
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-2, -22)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_lcjgu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.5, 0.5)
 shape = SubResource("CircleShape2D_vdny3")
