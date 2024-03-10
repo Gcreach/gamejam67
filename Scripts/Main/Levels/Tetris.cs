@@ -6,6 +6,8 @@ public partial class Tetris : Node2D
 
 	[Export] public Label TurnLabel;
 
+	[Export] public TileMap TileMap;
+
 	private string turnOn = "";
 
 	// Called when the node enters the scene tree for the first time.
