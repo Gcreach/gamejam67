@@ -5,9 +5,9 @@ enum parasite {
 }
 
 var cells = {
-	parasite.blue: [Vector2(1,0), Vector2(2,0)],
-	parasite.red: [Vector2(1,0), Vector2(2,0)],
-	parasite.yellow: [Vector2(1,0), Vector2(2,0)]
+	parasite.blue: [Vector2(1,0), Vector2(2.2,0)],
+	parasite.red: [Vector2(1,0), Vector2(2.2,0)],
+	parasite.yellow: [Vector2(1,0), Vector2(2.2,0)]
 }
 
 var data = {
