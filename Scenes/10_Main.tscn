@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://deqp25cl6ddeg"]
+[gd_scene load_steps=6 format=3 uid="uid://deqp25cl6ddeg"]
 
 [ext_resource type="Script" path="res://Prefabs/Menus/Scripts/MainMenu.cs" id="1_hb8wx"]
 [ext_resource type="PackedScene" uid="uid://damoa1si6ve1e" path="res://Prefabs/Menus/SaveLoadDeleteMenu_PFB.tscn" id="1_vwfqs"]
 [ext_resource type="PackedScene" uid="uid://bnbilflc6abgg" path="res://Prefabs/Menus/AudioMenu_PFB.tscn" id="3_cqcbn"]
 [ext_resource type="PackedScene" uid="uid://boilmx0svyvb7" path="res://Prefabs/Menus/VideoMenu_PFB.tscn" id="4_i1owg"]
+
+[sub_resource type="SystemFont" id="SystemFont_vsvvq"]
 
 [node name="10_Main" type="Node2D" node_paths=PackedStringArray("canvasLayers")]
 script = ExtResource("1_hb8wx")
@@ -24,31 +26,69 @@ visible = false
 [node name="Main" type="CanvasLayer" parent="."]
 
 [node name="startButton" type="Button" parent="Main"]
-offset_right = 8.0
-offset_bottom = 8.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -74.0
+offset_right = 23.0
+offset_bottom = -43.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = SubResource("SystemFont_vsvvq")
 text = "Start"
 metadata/_edit_use_anchors_ = true
 
 [node name="audioButton" type="Button" parent="Main"]
-offset_top = 40.0
-offset_right = 53.0
-offset_bottom = 71.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -26.5
+offset_top = -24.0
+offset_right = 26.5
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Audio"
 metadata/_edit_use_anchors_ = true
 
 [node name="videoButton" type="Button" parent="Main"]
-offset_top = 80.0
-offset_right = 42.0
-offset_bottom = 111.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -26.0
+offset_top = 26.0
+offset_right = 26.0
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Video"
 metadata/_edit_use_anchors_ = true
 
 [node name="quitButton" type="Button" parent="Main"]
-offset_top = 120.0
-offset_right = 42.0
-offset_bottom = 151.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = 76.0
+offset_right = 21.0
+offset_bottom = 107.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Quit"
 metadata/_edit_use_anchors_ = true
+
+[node name="Title" type="Label" parent="Main"]
+offset_right = 40.0
+offset_bottom = 23.0
 
 [connection signal="button_up" from="Main/startButton" to="." method="ShowLayer" binds= [1]]
 [connection signal="button_up" from="Main/audioButton" to="." method="ShowLayer" binds= [2]]
