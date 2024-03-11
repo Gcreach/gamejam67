@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dt404dr24qlsq"]
 
-[ext_resource type="Texture2D" uid="uid://yc6tpxp5e3rd" path="res://icon.svg" id="1_k6jo1"]
+[ext_resource type="Texture2D" uid="uid://dpfk5k4j6yq8l" path="res://icon.svg" id="1_k6jo1"]
 [ext_resource type="Script" path="res://Scripts/Testing/PlayerDataTest.cs" id="1_m1bmn"]
 
 [node name="20_Level1" type="Node2D" node_paths=PackedStringArray("myLabel")]
