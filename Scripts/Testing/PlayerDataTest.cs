@@ -12,7 +12,7 @@ public partial class PlayerDataTest : Node {
 		myLabel.Text += "Sample Dictionary Text: " + GameMaster.playerData.sampleDictionary["test"];
 
 
-    }
+	}
 
 	
 }
