@@ -5,6 +5,9 @@ public partial class Tetris : Node2D
 {
 
 	[Export] public Label TurnLabel;
+	[Export] public CompressedTexture2D Blue;
+	[Export] public CompressedTexture2D Red;
+	[Export] public CompressedTexture2D Yellow;
 
 	[Export] public TileMap TileMap;
 
@@ -13,6 +16,8 @@ public partial class Tetris : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		
+
 		GD.RandRange(150, 250);
 	}
 
