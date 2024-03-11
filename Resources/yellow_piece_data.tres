@@ -1,10 +1,10 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://b5cpwr33436q4"]
 
 [ext_resource type="Texture2D" uid="uid://du5gyfofllkei" path="res://Assets/Parasites/Yellow.png" id="1_3tlph"]
-[ext_resource type="Script" path="res://Scripts/Main/piece_data.gd" id="2_2wsta"]
+[ext_resource type="Script" path="res://Scripts/Main/Levels/piece_data.gd" id="2_8jgr2"]
 
 [resource]
-script = ExtResource("2_2wsta")
+script = ExtResource("2_8jgr2")
 piece_texture = ExtResource("1_3tlph")
 parasite_type = 2
-spawn_position = Vector2(-24, -456)
+spawn_position = Vector2(490, 50)
