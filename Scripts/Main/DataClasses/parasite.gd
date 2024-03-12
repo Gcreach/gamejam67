@@ -10,6 +10,7 @@ var bounds = {
 	"max_y": 620
 }
 
+var rotation_index = 0 
 var parasite_data
 var is_next_piece
 var pieces = []
@@ -22,7 +23,7 @@ var other_parasites: Array[parasite] = []
 var parasite_cells
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	parasite_cells = Shared.cells[parasite_data.Parasite_type]
+	parasite_cells = Shared.cells[parasite_data.Parasite_type].duplicate()
 	
 	for cell in parasite_cells:
 		var piece = piece_scene.instantiate() as Piece
@@ -44,9 +45,9 @@ func _input(event):
 	elif Input.is_action_just_pressed("hard_drop"):
 		hard_drop()
 	elif Input.is_action_just_pressed("rotate_left"):
-		pass
+		rotate_parasite(-1)
 	elif  Input.is_action_just_pressed("rotate_right"):
-		pass
+		rotate_parasite(1)
 
 func move(direction: Vector2) -> bool:
 	var new_position = calculate_global_position(direction, global_position)
@@ -72,12 +73,35 @@ func is_within_game_bounds(direction: Vector2, starting_global_position: Vector2
 		
 func is_colliding_with_other_parasites(direction: Vector2, starting_global_position: Vector2):
 	for Parasite in other_parasites:
-		var parasite_pieces = Parasite.pieces
+		var parasite_pieces = Parasite.get_children().filter(func (c): return c is Piece)
 		for parasite_piece in parasite_pieces:
 			for piece in pieces:
 				if starting_global_position + piece.position + direction * piece.get_size().x == Parasite.global_position + parasite_piece.position:
 					return true
 	return false 
+	
+func rotate_parasite(direction: int):
+	var original_rotation_index = rotation_index
+		
+	apply_rotation(direction)
+	
+	rotation_index = wrap(rotation_index + direction, 0, 4)
+	
+func apply_rotation(direction: int):
+	var rotation_matrix = Shared.clockwise_rotation_matrix if direction == 1 else Shared.counter_clockwise_rotation_matrix
+	
+	
+	for i in parasite_cells.size():
+		var cell = parasite_cells[i]
+		var x
+		var y
+		var coordinates = rotation_matrix[0] * cell.x + rotation_matrix[1] * cell.y
+		parasite_cells[i] = coordinates
+		
+	for i in pieces.size():
+		var piece = pieces[i]
+		piece.position = parasite_cells[i] * piece.get_size()
+		
 		
 func hard_drop():
 	while(move(Vector2.DOWN)):
