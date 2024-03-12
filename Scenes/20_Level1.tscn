@@ -29,15 +29,18 @@ offset_bottom = 209.0
 label_settings = SubResource("LabelSettings_3oe6i")
 
 [node name="Border" type="TextureRect" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 277.0
+offset_top = 3.0
+offset_right = 317.0
+offset_bottom = 43.0
+scale = Vector2(13.6, 16.04)
 
 [node name="GridTexture" type="TextureRect" parent="Border"]
-layout_mode = 0
-offset_left = 301.0
-offset_top = 28.0
-offset_right = 801.0
-offset_bottom = 628.0
+offset_left = 1.54412
+offset_top = 1.05985
+offset_right = 501.544
+offset_bottom = 601.06
+scale = Vector2(0.0705882, 0.0625935)
 texture = ExtResource("5_uspj4")
 stretch_mode = 1
 
@@ -51,3 +54,6 @@ autoplay = true
 [node name="Board" type="Node" parent="."]
 script = ExtResource("8_yvyhg")
 parasite_scene = ExtResource("7_jgl60")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(519, 623)
