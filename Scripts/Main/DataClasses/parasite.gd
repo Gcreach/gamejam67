@@ -2,9 +2,19 @@ extends Node2D
 
 class_name parasite
 
+signal lock_parasite(Parasite: parasite)
+
+var bounds = {
+	"min_x": 305,
+	"max_x": 780,
+	"max_y": 620
+}
+
 var parasite_data
 var is_next_piece
 var pieces = []
+var other_parasites: Array[parasite] = []
+
 @onready var timer = $Timer
 @onready var piece_scene = preload("res://Scenes/piece.tscn")
 
@@ -32,7 +42,7 @@ func _input(event):
 	elif Input.is_action_just_pressed("down"):
 		move(Vector2.DOWN)
 	elif Input.is_action_just_pressed("hard_drop"):
-		pass
+		hard_drop()
 	elif Input.is_action_just_pressed("rotate_left"):
 		pass
 	elif  Input.is_action_just_pressed("rotate_right"):
@@ -46,15 +56,40 @@ func move(direction: Vector2) -> bool:
 	return false
 	
 func calculate_global_position(direction: Vector2, starting_global_position: Vector2):
-	#TODO: check for collision with other parasites
-	pass
-	#TODO: check for collision with game bounds
+	if is_colliding_with_other_parasites(direction, starting_global_position):
+		return null
+	
+	if !is_within_game_bounds(direction, starting_global_position):
+		return null
 	return starting_global_position + direction * pieces[0].get_size().x
 	
 func is_within_game_bounds(direction: Vector2, starting_global_position: Vector2):
-	if !is_within_game_bounds(direction, starting_global_position):
-		return null
+	for piece in pieces:
+		var new_position = piece.position + starting_global_position + direction * piece.get_size()
+		if new_position.x < bounds.get("min_x") || new_position.x > bounds.get("max_x") || new_position.y >= bounds.get("max_y"):
+			return false
+		return true
+		
+func is_colliding_with_other_parasites(direction: Vector2, starting_global_position: Vector2):
+	for Parasite in other_parasites:
+		var parasite_pieces = Parasite.pieces
+		for parasite_piece in parasite_pieces:
+			for piece in pieces:
+				if starting_global_position + piece.position + direction * piece.get_size().x == Parasite.global_position + parasite_piece.position:
+					return true
+	return false 
+		
+func hard_drop():
+	while(move(Vector2.DOWN)):
+		continue
+	lock()
 
+func lock():
+	timer.stop()
+	lock_parasite.emit(self)
+	set_process_input(false)
 
 func _on_timer_timeout():
-	move(Vector2.DOWN)
+	var should_lock = !move(Vector2.DOWN)
+	if should_lock:
+		lock()
