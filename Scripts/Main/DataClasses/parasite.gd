@@ -93,8 +93,6 @@ func apply_rotation(direction: int):
 	
 	for i in parasite_cells.size():
 		var cell = parasite_cells[i]
-		var x
-		var y
 		var coordinates = rotation_matrix[0] * cell.x + rotation_matrix[1] * cell.y
 		parasite_cells[i] = coordinates
 		
