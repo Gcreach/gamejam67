@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhwkn3lghjaa6"]
+
+[ext_resource type="Script" path="res://Scenes/Godot Intro.gd" id="1_iiw52"]
+[ext_resource type="VideoStream" path="res://Assets/Intro/ssstwitter.com_1710291866045.ogv" id="1_jtuca"]
+
+[node name="Intro" type="Node2D"]
+script = ExtResource("1_iiw52")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+offset_left = -2.0
+offset_top = -7.0
+offset_right = 1278.0
+offset_bottom = 713.0
+stream = ExtResource("1_jtuca")

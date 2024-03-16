@@ -28,6 +28,7 @@ func spawn_parasite(type: Shared.parasite, is_next_piece, spawn_position):
 		add_child(Parasite)
 	else: 
 		Parasite.scale = Vector2(0.5, 0.5)
+		#TODO: Fix bug below
 		panel_container.add_child(Parasite)
 		Parasite.set_position(spawn_position)
 		next_parasite = Parasite
@@ -54,6 +55,7 @@ func fill_board_pieces():
 		for piece in parasite_pieces:
 			
 			var row = (piece.global_position.y + piece.get_size().y / 2) / piece.get_size().y + ROW_COUNT / 2
+			#TODO: Fix bug below
 			board_pieces[row - 1].append(piece)
 	return board_pieces
 	
