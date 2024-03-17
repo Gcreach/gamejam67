@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://deqp25cl6ddeg"]
+[gd_scene load_steps=7 format=3 uid="uid://deqp25cl6ddeg"]
 
 [ext_resource type="Script" path="res://Prefabs/Menus/Scripts/MainMenu.cs" id="1_hb8wx"]
 [ext_resource type="PackedScene" uid="uid://damoa1si6ve1e" path="res://Prefabs/Menus/SaveLoadDeleteMenu_PFB.tscn" id="1_vwfqs"]
 [ext_resource type="PackedScene" uid="uid://bnbilflc6abgg" path="res://Prefabs/Menus/AudioMenu_PFB.tscn" id="3_cqcbn"]
 [ext_resource type="PackedScene" uid="uid://boilmx0svyvb7" path="res://Prefabs/Menus/VideoMenu_PFB.tscn" id="4_i1owg"]
+[ext_resource type="Texture2D" uid="uid://5m36u5erer3r" path="res://Assets/Backgrounds/Title Screen.png" id="5_r6dy2"]
 
 [sub_resource type="SystemFont" id="SystemFont_vsvvq"]
 
@@ -89,6 +90,10 @@ metadata/_edit_use_anchors_ = true
 [node name="Title" type="Label" parent="Main"]
 offset_right = 40.0
 offset_bottom = 23.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(576, 326)
+texture = ExtResource("5_r6dy2")
 
 [connection signal="button_up" from="Main/startButton" to="." method="ShowLayer" binds= [1]]
 [connection signal="button_up" from="Main/audioButton" to="." method="ShowLayer" binds= [2]]
